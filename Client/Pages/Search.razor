@@ -1,0 +1,320 @@
+@page "/search"
+@inherits ComponentBase
+@inject HttpClient Http
+@using HandMade.Shared.Models
+
+<PageTitle>search</PageTitle>
+
+<h1>作品</h1>
+<div class="container border" style="max-width: 900px;">
+    <div class="row mb-1 mt-3">
+        <div class="col-1 text-right" style="margin-left: 0rem;">検索</div>
+        <div class="col-5"><input type="text" style="margin-left:2rem;" class="form-control" /></div>
+    </div>
+    <div class="row">
+        <div class="mb-1 mt-3">
+            <p>
+                <a data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    詳細検索
+                </a>
+                <a style="margin-left:1rem;" data-bs-toggle="collapse" href="#revercesearch" aria-expanded="false"
+                    aria-controls="revercesearch">
+                    逆検索
+                </a>
+            </p>
+            <div id="collapseExample" class="collapse">
+                <div class="card card-body">
+
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>作品カテゴリ</label>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" @bind="maincategory"  aria-label="pulldown1">
+                            <option selected>メインカテゴリ</option>
+                            <option value="かばん">かばん</option>
+                            <option value="ぬいぐるみ">ぬいぐるみ</option>
+                            <option value="ポーチ">ポーチ</option>
+                            <option value="その他">その他</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" @bind="subcategory" aria-label="pulldown1">
+                            <option selected>サブカテゴリ</option>
+                            <option value="動物">動物</option>
+                            <option value="花">花</option>
+                            <option value="その他">その他</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>素材カテゴリ</label>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" @bind="mainmaterial" aria-label="pulldown1">
+                            <option selected>メインカテゴリ</option>
+                            <option value="布">布</option>
+                            <option value="フェルト">フェルト</option>
+                            <option value="毛糸">毛糸</option>
+                            <option value="レジン">レジン</option>
+                            <option value="その他">その他</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" @bind="submaterial" aria-label="pulldown1">
+                            <option selected>サブカテゴリ</option>
+                            <option value="刺繍">刺繍</option>
+                            <option value="うさぎ">うさぎ</option>
+                            <option value="その他">その他</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>製作時間</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" style="margin-left:1rem;" class="form-control" @bind="worktimeFrom" />
+                        </div>
+                        <div class="col-1" style="margin-left:3rem;">～</div>
+                        <div class="col-3">
+                            <input type="text" style="margin-left:1rem;" class="form-control" @bind="worktimeTo"  />
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>製作費用</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" style="margin-left:1rem;" class="form-control" @bind="workcostFrom" />
+                        </div>
+                        <div class="col-1" style="margin-left:3rem;">～</div>
+                        <div class="col-3">
+                            <input type="text" style="margin-left:1rem;" class="form-control" @bind="workcostTo"  />
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>難易度</label>
+                        </div>
+                        @*@for(int i = 0 ; i <= 3 ; i++)
+                        {
+                        <div class="col-2">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" @bind="checklist[i]" id="check">
+                        <label class="form-check-label" for="check">
+                        @checklistname.FirstOrDefault(a => a.Key == i).Value
+                        </label>
+                        </div>
+                        </div>
+                        }*@
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" @bind="easyLevel" id="check">
+                                <label class="form-check-label" for="check">
+                                    簡単
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" @bind="normalLevel"
+                                    id="check2">
+                                <label class="form-check-label" for="check2">
+                                    普通
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" @bind="hardLevel" id="check3">
+                                <label class="form-check-label" for="check3">
+                                    難しい
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" @bind="veryhardLevel"
+                                    id="check4">
+                                <label class="form-check-label" for="check3">
+                                    非常に難しい
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <button class="btn btn-primary btn-lg" type="button" @onclick="OnClick">検索</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="revercesearch" class="collapse">
+                <div class="card card-body">
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>素材</label>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="check1">
+                                <label class="form-check-label" for="check1">
+                                    服
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="check2">
+                                <label class="form-check-label" for="check2">
+                                    着物
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="check3">
+                                <label class="form-check-label" for="check3">
+                                    端切れ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="check3">
+                                <label class="form-check-label" for="check3">
+                                    バッグ
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>素材</label>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="check1">
+                                <label class="form-check-label" for="check1">
+                                    服
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="check2">
+                                <label class="form-check-label" for="check2">
+                                    着物
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="check3">
+                                <label class="form-check-label" for="check3">
+                                    端切れ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="check3">
+                                <label class="form-check-label" for="check3">
+                                    刺繍糸
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>製作時間</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" style="margin-left:1rem;" class="form-control" />
+                        </div>
+                        <div class="col-1" style="margin-left:3rem;">～</div>
+                        <div class="col-3">
+                            <input type="text" style="margin-left:1rem;" class="form-control" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-2">
+                            <label>難易度</label>
+                        </div>
+                        @* @for(int i = 0 ; i <= 3 ; i++)
+                        {
+                        <div class="col-2">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" @bind="checklist[i]" id="check">
+                        <label class="form-check-label" for="check">
+                        @checklistname.FirstOrDefault(a => a.Value == i).Value
+                        </label>
+                        </div>
+                        </div>
+                        };
+
+                        <div class="col-2">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" @bind="check2" id="check2">
+                        <label class="form-check-label" for="check2">
+                        普通
+                        </label>
+                        </div>
+                        </div>
+                        <div class="col-2">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" @bind="check3" id="check3">
+                        <label class="form-check-label" for="check3">
+                        難しい
+                        </label>
+                        </div>
+                        </div>
+                        <div class="col-3">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" @bind="check4" id="check4">
+                        <label class="form-check-label" for="check3">
+                        非常に難しい
+                        </label>
+                        </div>
+                        </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h2>作品一覧</h2>
+    <div class = "row">
+    @foreach (var worksSearch in WorksSearch)
+    {
+        
+        <div class = "col-3 mr-1">
+            <div>
+                <img src="" style="width: 90%;" alt="Firstslide">
+            </div>
+            <div>
+               <label>作品名</label> <a href="SearchDetails"> @worksSearch.WorksName</a>
+            </div>
+            <div class="row">
+                <div>@worksSearch.MainCategory @worksSearch.SubCategory</div>
+            </div>
+        </div>
+    }
+    </div>
+</div>

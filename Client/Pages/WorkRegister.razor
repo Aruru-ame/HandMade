@@ -1,0 +1,127 @@
+@page "/workregister"
+@inherits ComponentBase
+@inject HttpClient Http
+@using HandMade.Shared.Models
+@using HandMade.Shared
+@using Microsoft.AspNetCore.Components.Forms;
+@inject SharedService SharedService
+
+<PageTitle>作品登録</PageTitle>
+
+<h1>作品登録画面</h1>
+
+<p>あなたの作品を登録してください</p>
+
+<div class="container border" style="height: 700px;">
+        <div class="row mb-1 mt-3">
+            <div class="col-2">
+                <label>作品名</label>
+            </div>
+            <div class="col-5">
+                <input type="text" @bind="workname" required>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label for="file">作品写真</label>
+            </div>
+            <div class="col-5">
+                <InputFile OnChange = "(files) => HandleFileChange(files)"/>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>作品カテゴリ</label>
+            </div>
+            <div class="col-3">
+                <select class="form-select" aria-label="pulldown1" @bind="workcategory">
+                    <option selected>メインカテゴリ</option>
+                    <option value="かばん">かばん</option>
+                    <option value="ぬいぐるみ">ぬいぐるみ</option>
+                    <option value="ポーチ">ポーチ</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <select class="form-select" aria-label="pulldown1" @bind="subworkcategory">
+                    <option selected>サブカテゴリ</option>
+                    <option value="動物">動物</option>
+                    <option value="花">花</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>素材カテゴリ</label>
+            </div>
+            <div class="col-3">
+                <select class="form-select" aria-label="pulldown1" @bind="mainmaterial">
+                    <option selected>メインカテゴリ</option>
+                    <option value="布">布</option>
+                    <option value="フェルト">フェルト</option>
+                    <option value="毛糸">毛糸</option>
+                    <option value="レジン">レジン</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <select class="form-select" aria-label="pulldown1" @bind="submaterial">
+                    <option selected>サブカテゴリ</option>
+                    <option value="刺繍">刺繍</option>
+                    <option value="うさぎ">うさぎ</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>製作時間</label>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control" @bind="worktime"/>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>製作費用</label>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control" @bind="workcost"/>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>難易度</label>
+            </div>
+            <div class="col-3">
+                <select class="form-select" aria-label="pulldown1" @bind="Level">
+                    <option selected>未選択</option>
+                    <option value="簡単">簡単</option>
+                    <option value="ふつう">ふつう</option>
+                    <option value="難しい">難しい</option>
+                    <option value="非常に難しい">非常に難しい</option>
+                </select>
+            </div>
+        </div>
+
+                <div class="row mb-1 mt-3">
+            <div class="col-2">
+                <label>作品コメント</label>
+            </div>
+            <div class="col-5">
+                <textarea class="form-control" @bind="comment"></textarea>
+            </div>
+        </div>
+
+
+        <div class="col-1 mb-1 mt-10">
+            <button class="btn btn-primary" type="button" @onclick="WorkSubmit">確認</button>
+        </div>
+</div>

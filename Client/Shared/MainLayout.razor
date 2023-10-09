@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+
+
+<div class="main">
+    <header class="py-4">
+        <div class="" style="display: table; width: 100%;">
+            <div style="display: table-cell; text-align: center;">
+                <div class="col-12">
+                    <a href="">HandmadeApp</a>
+                </div>
+            </div>
+
+            <div class="col-2" style="display: table-cell; text-align: center;">
+                <a href="UserSubmit">ログイン</a>
+                <a href="UserSubmit"><button class="btn btn-primary" type="button" href="UserSubmit">新規登録</button></a>
+            </div>
+        </div>
+    </header>
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <article class="content px-4">
+        @Body
+    </article>
+</div>

@@ -1,0 +1,98 @@
+@page "/worksubmit"
+@using HandMade.Shared
+@inherits ComponentBase
+@inject HttpClient Http
+@using HandMade.Shared.Models
+@inject SharedService SharedService
+
+<PageTitle>作品登録</PageTitle>
+
+<h1>作品登録確認画面</h1>
+
+<p>この内容で登録します</p>
+
+
+<div class="container border" style="height: 700px;">
+        <div class="row mb-1 mt-3">
+            <div class="col-2">
+                <label>作品名</label>
+            </div>
+            <div class="col-5">
+                <label>@SharedService.Workname</label>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label for="file">作品写真</label>
+            </div>
+            <div class="col-5">
+                <label for="file">作品写真</label>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>作品カテゴリ</label>
+            </div>
+            <div class="col-3">
+                <label>@SharedService.workcategory</label>
+            </div>
+            <div class="col-3">
+                <label>@SharedService.subworkcategory</label>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>素材カテゴリ</label>
+            </div>
+            <div class="col-3">
+                <label>@SharedService.mainmaterial</label>
+            </div>
+            <div class="col-3">
+                <label>@SharedService.submaterial</label>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>製作時間</label>
+            </div>
+            <div class="col-3">
+                <label>@SharedService.worktime</label>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>製作費用</label>
+            </div>
+            <div class="col-3">
+                <label>@SharedService.workcost</label>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <label>難易度</label>
+            </div>
+            <div class="col-3">
+                <label>@SharedService.Level</label>
+            </div>
+        </div>
+
+                <div class="row mb-1 mt-3">
+            <div class="col-2">
+                <label>作品コメント</label>
+            </div>
+            <div class="col-5">
+                <label>@SharedService.comment</label>
+            </div>
+        </div>
+
+
+        <div class="col-1 mb-1 mt-10">
+            <button class="btn btn-primary" type="button" @onclick="Submit">登録</button>
+        </div>
+</div>

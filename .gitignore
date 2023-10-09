@@ -1,0 +1,7 @@
+.vscode/
+bin/
+*.log
+obj/
+Migrations/
+.vs/
+open-iconic
